@@ -4,6 +4,7 @@ import Navbar from './components/navbar/Navbar';
 import './globals.css'
 import {Nunito} from 'next/font/google'
 import ToasterProvider from "@/app/providers/ToasterProvider";
+import LoginModal from "@/app/components/modals/LoginModal";
 export const metadata = {
   title: 'SalouBnB',
   description: 'Your holidays vacations website',
@@ -22,6 +23,7 @@ export default function RootLayout({
         <ClientOnly>
           <ToasterProvider />
           <RegisterModal/>
+          <LoginModal/>
           <Navbar />
         </ClientOnly>
         {children}
