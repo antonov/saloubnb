@@ -17,7 +17,12 @@ export default async function getCurrentUser() {
       return null;
     }
 
-    return user;
+    return {
+      ...user,
+      createdAt: user.createdAt.toISOString(),
+      updatedAt: user.updatedAt.toISOString(),
+      emailVerifiedAt: user.emailVerified?.toISOString() || null,
+    };
   } catch (error: any){
     return null;
   }
