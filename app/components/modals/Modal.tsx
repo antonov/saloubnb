@@ -10,7 +10,7 @@ interface ModalProps {
     onSubmit:() => void;
     title?: string;
     body?: React.ReactNode;
-    footer?: string;
+    footer?: React.ReactNode;
     actionLabel: string;
     disabled?: boolean;
     secondaryAction?: () => void;
@@ -140,8 +140,8 @@ const Modal: React.FC<ModalProps> = ({isOpen, onClose, onSubmit, title, body, fo
                             <Button outline disabled={disabled} label={secondaryActionLabel} onClick={secondaryAction} />
                         )}
                             <Button  disabled={disabled} label={actionLabel} onClick={handleSubmit} />
-                            
                         </div>
+                        {footer}
                     </div>
                 </div>
             </div>
