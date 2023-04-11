@@ -11,6 +11,7 @@ import { categories } from '../navbar/Categories'
 import CategoryInput from "@/app/components/inputs/CategoryInput";
 import CountrySelect from "@/app/components/inputs/CountrySelect";
 import dynamic from "next/dynamic";
+import Counter from "@/app/components/inputs/Counter";
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
@@ -57,6 +58,9 @@ const RentModal = () => {
 
     const category = watch('category');
     const location = watch('location');
+    const guestCount = watch('guestCount');
+    const roomCount = watch('roomCount');
+    const bathroomCount = watch('bathroomCount');
     const setCustomValue = (id: string, value: any) => {
       setValue(id, value, {shouldTouch: true, shouldDirty:true, shouldValidate:true});
     }
@@ -106,6 +110,44 @@ const RentModal = () => {
         </div>
       );
 
+    }
+    
+    if (step === STEPS.INFO) {
+      bodyContent = (
+        <div className="flex flex-col gap-8">
+          <Heading title="Share some basics about your place"
+                   subtitle="What amenities do you have?"/>
+          <Counter
+            onChange={
+              (value) => {
+                setCustomValue('guestCount', value)
+              }
+            }
+            title="Number of guests"
+            subtitle="How many guests do you allow?"
+            value={guestCount} />
+          <Counter
+            onChange={
+              (value) => {
+                setCustomValue('roomCount', value)
+              }
+            }
+            title="Number of rooms"
+            subtitle="How many rooms do you have?"
+            value={roomCount} />
+
+          <Counter
+            onChange={
+              (value) => {
+                setCustomValue('bathroomCount', value)
+              }
+            }
+            title="Number of bathrooms"
+            subtitle="How many bathrooms do you have?"
+            value={bathroomCount} />
+        </div>
+
+      )
     }
 
     const actionLabel = useMemo(() => {
