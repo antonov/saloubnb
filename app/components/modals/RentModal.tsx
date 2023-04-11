@@ -1,19 +1,16 @@
 'use client';
 
-import axios from 'axios';
 import useRentModal from "@/app/hooks/useRentModal";
-import { AiFillGithub } from 'react-icons/ai';
-import { FcGoogle } from 'react-icons/fc';
 import {useCallback, useMemo, useState} from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import Modal from './Modal';
 import Heading from '../Heading';
-import Input from '../inputs/Input';
-import Button from "@/app/components/Button";
-import {signIn} from "next-auth/react";
+
 import { categories } from '../navbar/Categories'
 import CategoryInput from "@/app/components/inputs/CategoryInput";
+import CountrySelect from "@/app/components/inputs/CountrySelect";
+import dynamic from "next/dynamic";
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
@@ -59,6 +56,7 @@ const RentModal = () => {
     });
 
     const category = watch('category');
+    const location = watch('location');
     const setCustomValue = (id: string, value: any) => {
       setValue(id, value, {shouldTouch: true, shouldDirty:true, shouldValidate:true});
     }
@@ -86,6 +84,29 @@ const RentModal = () => {
           </div>
         </div>
     );
+
+    const Map = useMemo(
+      () => (dynamic(() => import ('../Map'), { ssr: false })),
+      [location]
+    );
+    if (step === STEPS.LOCATION) {
+      bodyContent = (
+        <div className='flex flex-col gap-8'>
+          <Heading title="Where is your place located?"
+                   subtitle="How guests find you."/>
+          <CountrySelect
+            value={location}
+            onChange={
+              (value) => {
+                setCustomValue('location', value)
+              }
+            }
+          />
+          <Map center={location?.latLng}/>
+        </div>
+      );
+
+    }
 
     const actionLabel = useMemo(() => {
       if (step === STEPS.PRICE) {
@@ -118,7 +139,7 @@ const RentModal = () => {
     secondaryActionLabel={secondaryActionLabel}
     secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
     onClose={rentModal.onClose}
-    onSubmit={rentModal.onClose}
+    onSubmit={onNext}
     body={bodyContent}
     footer={footerContent}
     />
