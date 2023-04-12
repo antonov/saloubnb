@@ -12,6 +12,8 @@ import CategoryInput from "@/app/components/inputs/CategoryInput";
 import CountrySelect from "@/app/components/inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "@/app/components/inputs/Counter";
+import ImageUpload from "@/app/components/inputs/ImageUpload";
+import imageUpload from "@/app/components/inputs/ImageUpload";
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
@@ -61,6 +63,7 @@ const RentModal = () => {
     const guestCount = watch('guestCount');
     const roomCount = watch('roomCount');
     const bathroomCount = watch('bathroomCount');
+    const imageSrc = watch('imageSrc');
     const setCustomValue = (id: string, value: any) => {
       setValue(id, value, {shouldTouch: true, shouldDirty:true, shouldValidate:true});
     }
@@ -145,6 +148,21 @@ const RentModal = () => {
             title="Number of bathrooms"
             subtitle="How many bathrooms do you have?"
             value={bathroomCount} />
+        </div>
+
+      )
+    }
+
+    if (step === STEPS.IMAGES) {
+      bodyContent = (
+        <div className="flex flex-col gap-8">
+          <Heading title="Add a photo of your place"
+                   subtitle="Show your guests what your place looks like!"/>
+          <ImageUpload value={imageSrc} onChange={
+            (value) => {
+              setCustomValue('imageSrc', value)
+            }
+          }/>
         </div>
 
       )
