@@ -19,7 +19,7 @@ export default async function Home() {
     <ClientOnly>
       <Container>
         <div className="
-          pt-48
+          pt-24
           grid
           grid-cols-1
           sm:grid-cols-2
