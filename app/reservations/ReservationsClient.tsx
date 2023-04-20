@@ -12,7 +12,7 @@ interface TripsClientProps{
   reservations: SafeReservation[];
   currentUser: SafeUser
 }
-const TripsClient: React.FC<TripsClientProps> = ({reservations, currentUser}) => {
+const ReservationsClient: React.FC<TripsClientProps> = ({reservations, currentUser}) => {
   const router = useRouter();
   const [deletingId, setDeletingId] = useState('');
 
@@ -30,7 +30,7 @@ const TripsClient: React.FC<TripsClientProps> = ({reservations, currentUser}) =>
 
   return (
     <Container>
-      <Heading title="Trips" subtitle="Where you've been and where you're going"/>
+      <Heading title="Reservations" subtitle="Bookings on your properties"/>
       <div className="
         mt-10
         grid
@@ -50,11 +50,11 @@ const TripsClient: React.FC<TripsClientProps> = ({reservations, currentUser}) =>
         onAction={onCancel}
         actionId={reservation.id}
         disabled={reservation.id === deletingId}
-        actionLabel="Cancel reservation"
+        actionLabel="Cancel guest reservation"
       />
       ))}
       </div>
     </Container>
   );
 }
-export default TripsClient;
+export default ReservationsClient;
