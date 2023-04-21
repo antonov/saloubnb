@@ -17,6 +17,9 @@ export async function getListings(params: IListingsParams) {
     if(userId) {
       query.userId = userId;
     }
+    if(category) {
+      query.category = category;
+    }
     if(guestCount) {
       query.guestCount = {
         gte: +guestCount
